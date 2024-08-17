@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:image_to_text_recognition/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,102 +12,255 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-      
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
+// import 'package:flutter/material.dart';
+// // ignore: depend_on_referenced_packages
+// import 'package:gallery_picker/gallery_picker.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+// void main() {
+//   runApp(const MyApp());
+// }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  final String title;
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         brightness: Brightness.light,
+//         /* light theme settings */
+//       ),
+//       darkTheme: ThemeData(
+//         brightness: Brightness.dark,
+//         /* dark theme settings */
+//       ),
+//       themeMode: ThemeMode.dark,
+//       home: const MyHomePage(
+//         title: "Gallery Picker",
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+// class MyHomePage extends StatefulWidget {
+//   final List<MediaFile>? medias;
+//   const MyHomePage({super.key, required this.title, this.medias});
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+//   final String title;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
+// class _MyHomePageState extends State<MyHomePage> {
+//   List<MediaFile> selectedMedias = [];
+
+//   @override
+//   void initState() {
+//     if (widget.medias != null) {
+//       selectedMedias = widget.medias!;
+//     }
+//     super.initState();
+//   }
+
+//   int pageIndex = 0;
+//   var controller = PageController(initialPage: 0);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             const Spacer(),
+//             const Text(
+//               'These are your selected medias',
+//             ),
+//             const Divider(),
+//             Expanded(
+//               flex: 5,
+//               child: Stack(children: [
+//                 if (selectedMedias.isNotEmpty)
+//                   PageView(
+//                     controller: controller,
+//                     children: [
+//                       for (var media in selectedMedias)
+//                         Center(
+//                           child: MediaProvider(
+//                             media: media,
+//                           ),
+//                         )
+//                     ],
+//                   ),
+//                 if (selectedMedias.isNotEmpty)
+//                   Align(
+//                     alignment: Alignment.centerRight,
+//                     child: TextButton(
+//                         onPressed: () {
+//                           if (pageIndex < selectedMedias.length - 1) {
+//                             pageIndex++;
+//                             controller.animateToPage(pageIndex,
+//                                 duration: const Duration(milliseconds: 500),
+//                                 curve: Curves.easeIn);
+//                             setState(() {});
+//                           }
+//                         },
+//                         child: const Icon(
+//                           Icons.chevron_right,
+//                           size: 100,
+//                           color: Colors.red,
+//                         )),
+//                   ),
+//                 if (selectedMedias.isNotEmpty)
+//                   Align(
+//                     alignment: Alignment.centerLeft,
+//                     child: TextButton(
+//                         onPressed: () {
+//                           if (pageIndex > 0) {
+//                             pageIndex--;
+//                             controller.animateToPage(pageIndex,
+//                                 duration: const Duration(milliseconds: 500),
+//                                 curve: Curves.easeIn);
+//                             setState(() {});
+//                           }
+//                         },
+//                         child: const Icon(
+//                           Icons.chevron_left,
+//                           size: 100,
+//                           color: Colors.red,
+//                         )),
+//                   ),
+//               ]),
+//             ),
+//             SizedBox(
+//               height: 65,
+//               child: ListView(
+//                 scrollDirection: Axis.horizontal,
+//                 children: [
+//                   for (int i = 0; i < selectedMedias.length; i++)
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 5),
+//                       child: TextButton(
+//                         onPressed: () {
+//                           pageIndex = i;
+//                           controller.animateToPage(pageIndex,
+//                               duration: const Duration(milliseconds: 500),
+//                               curve: Curves.easeIn);
+//                           setState(() {});
+//                         },
+//                         child: Container(
+//                             width: 65,
+//                             height: 50,
+//                             decoration: BoxDecoration(
+//                                 border: Border.all(
+//                                     width: 2,
+//                                     color: pageIndex == i
+//                                         ? Colors.red
+//                                         : Colors.black)),
+//                             child: ThumbnailMedia(
+//                               media: selectedMedias[i],
+//                             )),
+//                       ),
+//                     )
+//                 ],
+//               ),
+//             ),
+//             const Spacer(
+//               flex: 2,
+//             ),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: pickMedia,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ),
+//     );
+//   }
+
+//   Future<void> pickMedia() async {
+//     List<MediaFile>? media = await GalleryPicker.pickMedia(
+//         context: context,
+//         initSelectedMedia: selectedMedias,
+//         extraRecentMedia: selectedMedias,
+//         startWithRecent: true);
+//     if (media != null) {
+//       setState(() {
+//         selectedMedias += media;
+//       });
+//     }
+//   }
+
+//   pickMediaWithBuilder() {
+//     GalleryPicker.pickMediaWithBuilder(
+//         multipleMediaBuilder: ((medias, context) {
+//           return MultipleMediasView(medias);
+//         }),
+//         heroBuilder: (tag, media, context) {
+//           return Scaffold(
+//             appBar: AppBar(
+//               title: const Text('Hero Page'),
+//             ),
+//             body: Center(
+//                 child: Hero(
+//               tag: tag,
+//               child: MediaProvider(
+//                 media: media,
+//                 width: MediaQuery.of(context).size.width - 50,
+//                 height: 300,
+//               ),
+//             )),
+//             floatingActionButton: FloatingActionButton(
+//               backgroundColor: Colors.blue,
+//               onPressed: () {
+//                 GalleryPicker.dispose();
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                       builder: (context) => MyHomePage(
+//                             title: "Selected Medias",
+//                             medias: [media],
+//                           )),
+//                 );
+//               },
+//               child: const Icon(
+//                 Icons.send,
+//                 color: Colors.white,
+//               ),
+//             ),
+//           );
+//         },
+//         context: context);
+//   }
+
+//   Future<void> getGalleryMedia() async {
+//     // ignore: unused_local_variable
+//     GalleryMedia? allmedia =
+//         await GalleryPicker.collectGallery(locale: const Locale("tr"));
+//   }
+// }
+// Widget MultipleMediasView(List<MediaFile> medias) {
+//   // Return a widget that displays the medias
+//   return Column(
+//     children: medias.map((media) {
+//       return MediaProvider(media: media);
+//     }).toList(),
+//   );
+// }
