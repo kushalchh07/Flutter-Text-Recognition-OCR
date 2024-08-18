@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gallery_picker/gallery_picker.dart';
 import 'package:gallery_picker/models/media_file.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,13 +38,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildUi() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _imageView(),
-        _extractTextView(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _imageView(),
+          SingleChildScrollView(
+              physics: BouncingScrollPhysics(), child: _extractTextView()),
+        ],
+      ),
     );
   }
 
@@ -71,8 +75,23 @@ class _HomePageState extends State<HomePage> {
         future: extractText(selectedFile!),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Container(
-              child: Text(snapshot.data.toString()),
+            return Center(
+              child: Container(
+                width: Get.width * 0.9,
+                height: Get.height,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.black,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(snapshot.data.toString()),
+                  ],
+                ),
+              ),
             );
           } else if (snapshot.hasError) {
             return Container(

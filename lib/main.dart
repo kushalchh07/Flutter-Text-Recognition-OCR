@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
 //       body: Center(
 //         child: Column(
 //           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
+//           children: <Widget>[r 
 //             const Spacer(),
 //             const Text(
 //               'These are your selected medias',
